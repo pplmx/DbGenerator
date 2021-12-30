@@ -24,9 +24,9 @@ public class Worker {
     private String mac;
     private int cpuCores;
     private float cpuAvg;
-    private float memTotal;
+    private float memCap;
     private float memUsed;
-    private float harkDiskTotal;
+    private float harkDiskCap;
     private float harkDiskUsed;
     private Instant createdTime;
     private Instant updatedTime;
@@ -77,12 +77,12 @@ public class Worker {
         this.cpuAvg = cpuAvg;
     }
 
-    public float getMemTotal() {
-        return memTotal;
+    public float getMemCap() {
+        return memCap;
     }
 
-    public void setMemTotal(float memTotal) {
-        this.memTotal = memTotal;
+    public void setMemCap(float memCap) {
+        this.memCap = memCap;
     }
 
     public float getMemUsed() {
@@ -93,12 +93,12 @@ public class Worker {
         this.memUsed = memUsed;
     }
 
-    public float getHarkDiskTotal() {
-        return harkDiskTotal;
+    public float getHarkDiskCap() {
+        return harkDiskCap;
     }
 
-    public void setHarkDiskTotal(float harkDiskTotal) {
-        this.harkDiskTotal = harkDiskTotal;
+    public void setHarkDiskCap(float harkDiskCap) {
+        this.harkDiskCap = harkDiskCap;
     }
 
     public float getHarkDiskUsed() {
@@ -181,9 +181,9 @@ public class Worker {
             "mac = " + mac + ", " +
             "cpuCores = " + cpuCores + ", " +
             "cpuAvg = " + cpuAvg + ", " +
-            "memTotal = " + memTotal + ", " +
+            "memCap = " + memCap + ", " +
             "memUsed = " + memUsed + ", " +
-            "harkDiskTotal = " + harkDiskTotal + ", " +
+            "harkDiskCap = " + harkDiskCap + ", " +
             "harkDiskUsed = " + harkDiskUsed + ", " +
             "createdTime = " + createdTime + ", " +
             "updatedTime = " + updatedTime + ", " +
