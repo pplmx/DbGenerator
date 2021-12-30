@@ -22,16 +22,23 @@ public class Worker {
     @Column(nullable = false)
     private UUID id;
     private String mac;
-    private float cpu;
-    private float gpu;
-    private float memory;
-    private float harkDisk;
+    private int cpuCores;
+    private float cpuAvg;
+    private float memTotal;
+    private float memUsed;
+    private float harkDiskTotal;
+    private float harkDiskUsed;
     private Instant createdTime;
+    private Instant updatedTime;
+    private Instant deletedTime;
+
+    @OneToMany(mappedBy = "worker")
+    private List<Gpu> gpuList;
 
     @ManyToMany
     @JoinTable(name = "worker_task_type",
-            joinColumns = @JoinColumn(name = "worker_id"),
-            inverseJoinColumns = @JoinColumn(name = "task_type_id")
+        joinColumns = @JoinColumn(name = "worker_id"),
+        inverseJoinColumns = @JoinColumn(name = "task_type_id")
     )
     private List<TaskType> taskTypeList;
 
@@ -54,36 +61,52 @@ public class Worker {
         this.mac = mac;
     }
 
-    public float getCpu() {
-        return cpu;
+    public int getCpuCores() {
+        return cpuCores;
     }
 
-    public void setCpu(float cpu) {
-        this.cpu = cpu;
+    public void setCpuCores(int cpuCores) {
+        this.cpuCores = cpuCores;
     }
 
-    public float getGpu() {
-        return gpu;
+    public float getCpuAvg() {
+        return cpuAvg;
     }
 
-    public void setGpu(float gpu) {
-        this.gpu = gpu;
+    public void setCpuAvg(float cpuAvg) {
+        this.cpuAvg = cpuAvg;
     }
 
-    public float getMemory() {
-        return memory;
+    public float getMemTotal() {
+        return memTotal;
     }
 
-    public void setMemory(float memory) {
-        this.memory = memory;
+    public void setMemTotal(float memTotal) {
+        this.memTotal = memTotal;
     }
 
-    public float getHarkDisk() {
-        return harkDisk;
+    public float getMemUsed() {
+        return memUsed;
     }
 
-    public void setHarkDisk(float harkDisk) {
-        this.harkDisk = harkDisk;
+    public void setMemUsed(float memUsed) {
+        this.memUsed = memUsed;
+    }
+
+    public float getHarkDiskTotal() {
+        return harkDiskTotal;
+    }
+
+    public void setHarkDiskTotal(float harkDiskTotal) {
+        this.harkDiskTotal = harkDiskTotal;
+    }
+
+    public float getHarkDiskUsed() {
+        return harkDiskUsed;
+    }
+
+    public void setHarkDiskUsed(float harkDiskUsed) {
+        this.harkDiskUsed = harkDiskUsed;
     }
 
     public Instant getCreatedTime() {
@@ -92,6 +115,30 @@ public class Worker {
 
     public void setCreatedTime(Instant createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public Instant getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(Instant updatedTime) {
+        this.updatedTime = updatedTime;
+    }
+
+    public Instant getDeletedTime() {
+        return deletedTime;
+    }
+
+    public void setDeletedTime(Instant deletedTime) {
+        this.deletedTime = deletedTime;
+    }
+
+    public List<Gpu> getGpuList() {
+        return gpuList;
+    }
+
+    public void setGpuList(List<Gpu> gpuList) {
+        this.gpuList = gpuList;
     }
 
     public List<TaskType> getTaskTypeList() {
@@ -130,12 +177,16 @@ public class Worker {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "mac = " + mac + ", " +
-                "cpu = " + cpu + ", " +
-                "gpu = " + gpu + ", " +
-                "memory = " + memory + ", " +
-                "harkDisk = " + harkDisk + ", " +
-                "createdTime = " + createdTime + ")";
+            "id = " + id + ", " +
+            "mac = " + mac + ", " +
+            "cpuCores = " + cpuCores + ", " +
+            "cpuAvg = " + cpuAvg + ", " +
+            "memTotal = " + memTotal + ", " +
+            "memUsed = " + memUsed + ", " +
+            "harkDiskTotal = " + harkDiskTotal + ", " +
+            "harkDiskUsed = " + harkDiskUsed + ", " +
+            "createdTime = " + createdTime + ", " +
+            "updatedTime = " + updatedTime + ", " +
+            "deletedTime = " + deletedTime + ")";
     }
 }

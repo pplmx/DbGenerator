@@ -78,7 +78,7 @@ public class TaskType {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "name = " + name + ")";
+            "id = " + id + ", " +
+            "name = " + name + ")";
     }
 }

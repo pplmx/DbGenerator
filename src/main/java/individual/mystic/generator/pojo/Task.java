@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -17,17 +18,19 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "task")
+@Table(name = "task", indexes = @Index(columnList = "taskId", unique = true))
 public class Task {
     @Id
     @Column(nullable = false)
     private UUID id;
+    private int taskId;
     private float priority;
     private float progress;
     private int status;
     private int error;
-    private Instant beginTime;
-    private Instant endTime;
+    private Instant createdTime;
+    private Instant updatedTime;
+    private Instant deletedTime;
     private boolean isAsync;
     private String results; // split with comma
 
@@ -44,8 +47,8 @@ public class Task {
 
     @ManyToMany
     @JoinTable(name = "pre_post_task",
-            joinColumns = @JoinColumn(name = "pre_task_id"),
-            inverseJoinColumns = @JoinColumn(name = "post_task_id")
+        joinColumns = @JoinColumn(name = "pre_task_id"),
+        inverseJoinColumns = @JoinColumn(name = "post_task_id")
     )
     private List<Task> preTaskList;
 
@@ -58,6 +61,14 @@ public class Task {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
     public float getPriority() {
@@ -92,20 +103,28 @@ public class Task {
         this.error = error;
     }
 
-    public Instant getBeginTime() {
-        return beginTime;
+    public Instant getCreatedTime() {
+        return createdTime;
     }
 
-    public void setBeginTime(Instant beginTime) {
-        this.beginTime = beginTime;
+    public void setCreatedTime(Instant createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public Instant getEndTime() {
-        return endTime;
+    public Instant getUpdatedTime() {
+        return updatedTime;
     }
 
-    public void setEndTime(Instant endTime) {
-        this.endTime = endTime;
+    public void setUpdatedTime(Instant updatedTime) {
+        this.updatedTime = updatedTime;
+    }
+
+    public Instant getDeletedTime() {
+        return deletedTime;
+    }
+
+    public void setDeletedTime(Instant deletedTime) {
+        this.deletedTime = deletedTime;
     }
 
     public boolean isAsync() {
@@ -192,17 +211,19 @@ public class Task {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "priority = " + priority + ", " +
-                "progress = " + progress + ", " +
-                "status = " + status + ", " +
-                "error = " + error + ", " +
-                "beginTime = " + beginTime + ", " +
-                "endTime = " + endTime + ", " +
-                "isAsync = " + isAsync + ", " +
-                "results = " + results + ", " +
-                "taskType = " + taskType.getName() + ", " +
-                "workerId = " + worker.getId() + ", " +
-                "parentTaskId = " + parentTask.getId() + ")";
+            "id = " + id + ", " +
+            "taskId = " + taskId + ", " +
+            "priority = " + priority + ", " +
+            "progress = " + progress + ", " +
+            "status = " + status + ", " +
+            "error = " + error + ", " +
+            "createdTime = " + createdTime + ", " +
+            "updatedTime = " + updatedTime + ", " +
+            "deletedTime = " + deletedTime + ", " +
+            "isAsync = " + isAsync + ", " +
+            "results = " + results + ", " +
+            "taskType = " + taskType.getName() + ", " +
+            "worker = " + worker.getId() + ", " +
+            "parentTask = " + parentTask.getId() + ")";
     }
 }
